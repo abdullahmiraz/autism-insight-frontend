@@ -1,5 +1,4 @@
-
-import ProgressChart from '../../components/ProgressChart';
+import ProgressChart from "../../components/main/ProgressChart";
 
 export default function ProgressPage() {
   return (
