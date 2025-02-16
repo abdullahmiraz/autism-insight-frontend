@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProgressChart from "./ProgressChart";
-import DetectionForm from "./DetectionForm";
+import DetectionForm from "./detection/DetectionForm";
 import TherapyList from "./TherapyList";
 
 export default function TabNavigation() {
