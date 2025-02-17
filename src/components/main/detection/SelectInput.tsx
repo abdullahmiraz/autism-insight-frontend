@@ -30,7 +30,7 @@ const SelectInput: FC<SelectInputProps> = ({
             <input
               type="radio"
               {...register(name, { required: required })}
-              value={option}
+              value={option == "Yes" ? 1 : option == "No" ? 0 : option}
               className="mr-2"
             />
             {option}

@@ -19,7 +19,8 @@ const questionsData = [
   {
     id: "A2",
     label: " How easy is it for you to get eye contact with your child?",
-    options: ["Easy", "Difficult"],
+    // options: ["Easy", "Difficult"],
+    options: ["Yes", "No"],
   },
   {
     id: "A3",
@@ -53,7 +54,8 @@ const questionsData = [
   {
     id: "A8",
     label: "Would you describe your child’s first words as:",
-    options: ["Early", "Late"],
+    // options: ["Early", "Late"],
+    options: ["Yes", "No"],
   },
   {
     id: "A9",
@@ -73,14 +75,47 @@ export default function DetectionForm() {
   // Directly using React Query mutation inside the component
   const mutation = useMutation({
     mutationFn: async (data: any) => {
-      const response = await axios.post("/api/detect", data);
+      const response = await axios.post("http://127.0.0.1:8000/predict", data);
       return response.data;
+    },
+    onSuccess: (data) => {
+      console.log("Prediction Response:", data);
+    },
+    onError: (error) => {
+      console.error("Error submitting data:", error);
     },
   });
 
   const onSubmit = (data: any) => {
-    console.log(data);
-    mutation.mutate(data);
+    console.log("Submitted Data:", data);
+
+    const questions = Object.fromEntries(
+      Object.entries(data.questions).map(([key, value]) => [key, Number(value)])
+    );
+
+    const formattedData = {
+      Case_No: 0,
+      ...questions,
+      Age_Mons: 28,
+      Qchat_10_Score: 3,
+      Ethnicity: "middle eastern",
+      Jaundice: "yes",
+      Family_mem_with_ASD: "no",
+      Sex: String(data.sex),
+      Who_completed_test: "family member",
+      "Class/ASD Traits": "No",
+
+      // Age_Mons: data.age_mons,
+      // Qchat_10_Score: data.qchat_10_score,
+      // // object types below
+      // Ethnicity: String( data.ethnicity),
+      // Jaundice: String(data.jaundice),
+      // Family_mem_with_ASD: String(data.family_mem_with_asd),
+      // Sex: String(data.sex),
+      // Who_completed_test: String(data.who_completed_test),
+    };
+    console.log(formattedData);
+    mutation.mutate(formattedData);
     reset();
   };
 
