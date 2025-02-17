@@ -4,7 +4,7 @@ import { FieldValues, UseFormRegister } from "react-hook-form";
 interface SelectInputProps {
   label: string;
   name: string;
-  index: number;
+  index?: number;
   options: string[];
   register: UseFormRegister<FieldValues>;
   required?: boolean;
@@ -22,7 +22,7 @@ const SelectInput: FC<SelectInputProps> = ({
     <div>
       <h3 className="text-lg font-semibold">
         {" "}
-        {index + 1}. {label}
+        {(index ?? -1) >= 0 ? index! + 1 : "Q"}. {label}
       </h3>
       <div className="flex gap-8">
         {options.map((option, index) => (

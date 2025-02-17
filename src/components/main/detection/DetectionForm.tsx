@@ -6,60 +6,62 @@ import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import SelectInput from "./SelectInput";
+import InitialQuery from "./InitialQuery";
+import { Separator } from "../../ui/separator";
 
 // Define the questions array
 const questionsData = [
   {
-    id: "q1",
+    id: "A1",
     label: " Does your child look at you when you call his/her name?",
     options: ["Yes", "No"],
   },
   {
-    id: "q2",
+    id: "A2",
     label: " How easy is it for you to get eye contact with your child?",
     options: ["Easy", "Difficult"],
   },
   {
-    id: "q3",
+    id: "A3",
     label:
       "Does your child point to indicate that s/he wants something? (e.g. a toy that is out of reach)",
     options: ["Yes", "No"],
   },
   {
-    id: "q4",
+    id: "A4",
     label:
       "Does your child point to share interest with you? (e.g. pointing at an interesting sight)",
     options: ["Yes", "No"],
   },
   {
-    id: "q5",
+    id: "A5",
     label:
       "Does your child pretend? (e.g. care for dolls, talk on a toy phone)",
     options: ["Yes", "No"],
   },
   {
-    id: "q6",
+    id: "A6",
     label: "Does your child follow where you’re looking?",
     options: ["Yes", "No"],
   },
   {
-    id: "q7",
+    id: "A7",
     label:
       "If you or someone else in the family is visibly upset, does your child show signs of wanting to comfort them? (e.g. stroking hair, hugging them)",
     options: ["Yes", "No"],
   },
   {
-    id: "q8",
+    id: "A8",
     label: "Would you describe your child’s first words as:",
     options: ["Early", "Late"],
   },
   {
-    id: "q9",
+    id: "A9",
     label: "Does your child use simple gestures? (e.g. wave goodbye)",
     options: ["Yes", "No"],
   },
   {
-    id: "q10",
+    id: "A10",
     label: "Does your child stare at nothing with no apparent purpose?",
     options: ["Yes", "No"],
   },
@@ -90,6 +92,11 @@ export default function DetectionForm() {
       <h2 className="text-2xl font-semibold text-center">
         Autism Symptom Detection
       </h2>
+
+      {/* Initial Query Component */}
+      <InitialQuery register={register} />
+
+      <Separator />
 
       {/* Map through the questionsData array to render each question */}
       <div className="space-y-4">
