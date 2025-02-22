@@ -72,6 +72,44 @@ const questionsData = [
 export default function DetectionForm() {
   const { register, handleSubmit, reset } = useForm();
 
+
+    // 1️⃣ Mutation for Video Upload
+    const videoMutation = useMutation({
+      mutationFn: async (video: File) => {
+        const formData = new FormData();
+        formData.append("video", video);
+
+        const response = await axios.post(
+          "http://127.0.0.1:8000/predict-video",
+          formData,
+          { headers: { "Content-Type": "multipart/form-data" } }
+        );
+
+        return response.data;
+      },
+      onSuccess: (data) => console.log("Video Prediction Response:", data),
+      onError: (error) => console.error("Error uploading video:", error),
+    });
+
+    // 2️⃣ Mutation for Image Upload
+    const imagesMutation = useMutation({
+      mutationFn: async (images: FileList) => {
+        const formData = new FormData();
+        Array.from(images).forEach((image) => formData.append("images", image));
+
+        const response = await axios.post(
+          "http://127.0.0.1:8000/predict-images",
+          formData,
+          { headers: { "Content-Type": "multipart/form-data" } }
+        );
+
+        return response.data;
+      },
+      onSuccess: (data) => console.log("Image Prediction Response:", data),
+      onError: (error) => console.error("Error uploading images:", error),
+    });
+
+
   // Directly using React Query mutation inside the component
   const mutation = useMutation({
     mutationFn: async (data: any) => {
