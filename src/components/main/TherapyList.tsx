@@ -1,23 +1,35 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import L from "leaflet";
+// import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+// import L from "leaflet";
+import dynamic from "next/dynamic";
+import { Icon } from "leaflet"; // Add this import at the top
+
 import "leaflet/dist/leaflet.css";
 
-// Custom marker icon setup
-const markerIcon = new L.Icon({
-  iconUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+// Simplified dynamic imports
+const MapContainer = dynamic(
+  () => import("react-leaflet").then((mod) => mod.MapContainer),
+  { ssr: false }
+);
+const TileLayer = dynamic(
+  () => import("react-leaflet").then((mod) => mod.TileLayer),
+  { ssr: false }
+);
+const Marker = dynamic(
+  () => import("react-leaflet").then((mod) => mod.Marker),
+  { ssr: false }
+);
+const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
+  ssr: false,
 });
+import { useMap } from "react-leaflet";
 
 interface Center {
   name: string;
@@ -48,25 +60,45 @@ export default function AutismCenters() {
   const [userLocation, setUserLocation] = useState<[number, number] | null>(
     null
   );
+  // const [defaultIcon, setDefaultIcon] = useState<Icon | null>(null);
 
-  // Dummy locations near Dhaka for initial view
-  const dummyCenters: Center[] = [
-    {
-      name: "Autism Care Shyamoli",
-      location: "Shyamoli, Dhaka",
-      coordinates: [23.7758, 90.3655],
-    },
-    {
-      name: "Hope Autism Center",
-      location: "Dhanmondi, Dhaka",
-      coordinates: [23.7465, 90.376],
-    },
-    {
-      name: "Peace Autism Care",
-      location: "Mirpur, Dhaka",
-      coordinates: [23.8041, 90.3668],
-    },
-  ];
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     setDefaultIcon(
+  //       new Icon({
+  //         iconUrl:
+  //           "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  //         iconSize: [25, 41],
+  //         iconAnchor: [12, 41],
+  //       })
+  //     );
+  //   }
+  // }, []);
+
+  const dummyCenters = useMemo<Center[]>(
+    () => [
+      {
+        name: "Autism Care Shyamoli",
+        location: "Shyamoli, Dhaka",
+        coordinates: [23.7758, 90.3655],
+      },
+      {
+        name: "Hope Autism Center",
+        location: "Dhanmondi, Dhaka",
+        coordinates: [23.7465, 90.376],
+      },
+      {
+        name: "Peace Autism Care",
+        location: "Mirpur, Dhaka",
+        coordinates: [23.8041, 90.3668],
+      },
+    ],
+    []
+  );
+
+  useEffect(() => {
+    setCenters(dummyCenters);
+  }, []); // Remove dummyCenters from dependency array since it's now memoized
 
   const fetchCenters = async () => {
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
@@ -95,10 +127,6 @@ export default function AutismCenters() {
       console.error("Failed to fetch centers", error);
     }
   };
-
-  useEffect(() => {
-    setCenters(dummyCenters);
-  }, []);
 
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
@@ -163,7 +191,11 @@ export default function AutismCenters() {
         {userLocation && <MapAutoScroller coordinates={userLocation} />}
         {firstCenter && <MapAutoScroller coordinates={firstCenter} />}
         {centers.map((center, index) => (
-          <Marker key={index} position={center.coordinates} icon={markerIcon}>
+          <Marker
+            key={index}
+            position={center.coordinates}
+            // icon={defaultIcon || undefined}
+          >
             <Popup>
               <h2 className="font-semibold">{center.name}</h2>
               <p>Location: {center.location}</p>
