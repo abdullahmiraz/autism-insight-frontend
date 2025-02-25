@@ -8,15 +8,17 @@ import {getAuth} from 'firebase/auth'
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+ 
 const firebaseConfig = {
-  apiKey: "AIzaSyBUZf7Qy0VGFU2Hhb66PCGTBn8uiGo-VTA",
-  authDomain: "autism-insight.firebaseapp.com",
-  projectId: "autism-insight",
-  storageBucket: "autism-insight.firebasestorage.app",
-  messagingSenderId: "698882826332",
-  appId: "1:698882826332:web:cdf23031d11e26b8b34699",
-  measurementId: "G-XNS7M3L4FP"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
