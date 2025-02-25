@@ -17,13 +17,13 @@ export default function InitialQuery({ register }: InitialQueryProps) {
             type="number"
             {...register("age_mons", { required: true })}
             min={1}
-            max={10000}
+            // max={10000}
             className="w-full p-2 border rounded-md"
           />
         </div>
 
         {/* Qchat-10 Score */}
-        <div>
+        {/* <div>
           <label className="block font-semibold">Qchat-10 Score</label>
           <input
             type="number"
@@ -32,7 +32,7 @@ export default function InitialQuery({ register }: InitialQueryProps) {
             max={10000}
             className="w-full p-2 border rounded-md"
           />
-        </div>
+        </div> */}
 
         {/* Sex */}
         <SelectInput
@@ -47,7 +47,7 @@ export default function InitialQuery({ register }: InitialQueryProps) {
         <SelectInput
           label="Jaundice"
           name="jaundice"
-          options={["Yes", "No"]}
+          options={["No", "Yes"]}
           register={register}
           required={true}
         />
@@ -56,19 +56,19 @@ export default function InitialQuery({ register }: InitialQueryProps) {
         <SelectInput
           label="Family Member with ASD"
           name="family_mem_with_asd"
-          options={["Yes", "No"]}
+          options={["No", "Yes"]}
           register={register}
           required={true}
         />
 
         {/* Who completed the test */}
-        <SelectInput
+        {/* <SelectInput
           label="Who completed the test?"
           name="who_completed_test"
           options={["Family Member", "Health Care Professional"]}
           register={register}
           required={true}
-        />
+        /> */}
       </div>
       {/* Ethnicity */}
       <SelectInput
