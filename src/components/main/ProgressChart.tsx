@@ -38,7 +38,7 @@ export default function ProgressChart() {
   };
 
   return (
-    <div className="p-4 bg-white shadow-md rounded-md">
+    <div className="container mx-auto p-4 md:p-0 my-12">
       <h2 className="text-lg font-semibold mb-2">Progress Over Time</h2>
       <Line data={data} />
     </div>

@@ -14,7 +14,7 @@ export default function RootLayout({
         <QueryClientWrapper>
           <>
             <Navbar />
-            <main className="container mx-auto p-6 min-h-screen">
+            <main className="  mx-auto  min-h-screen">
               {children}
             </main>
             <Footer />

@@ -168,12 +168,9 @@ export default function DetectionForm() {
   };
 
   return (
-    <>
+    <div className="container mx-auto p-4 md:p-0 my-12">
       {/* Form Section */}
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-6 p-6 bg-white shadow-md rounded-md"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 ">
         <h2 className="text-2xl font-semibold text-center">
           Autism Symptom Detection
         </h2>
@@ -280,6 +277,6 @@ export default function DetectionForm() {
           )}
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 }

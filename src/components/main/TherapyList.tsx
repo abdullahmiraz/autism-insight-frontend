@@ -148,7 +148,7 @@ export default function AutismCenters() {
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="container mx-auto p-4 md:p-0 my-12">
       <h1 className="text-xl font-bold">
         Find Autism Therapy Centers Worldwide
       </h1>
