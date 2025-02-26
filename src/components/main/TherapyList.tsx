@@ -148,14 +148,14 @@ export default function AutismCenters() {
   };
 
   return (
-    <div className="container mx-auto p-4 md:p-0 my-12">
-      <h1 className="text-xl font-bold">
+    <div className="container mx-auto p-4 md:p-0 my-12 ">
+      <h1 className="text-xl font-bold my-4">
         Find Autism Therapy Centers Worldwide
       </h1>
 
       <Button onClick={getCurrentLocation}>Use My Location</Button>
 
-      <div className="flex space-x-4">
+      <div className="flex gap-4 my-8">
         <Input
           placeholder="Latitude"
           type="number"
@@ -182,6 +182,7 @@ export default function AutismCenters() {
       <MapContainer
         center={[lat, lon]}
         zoom={12}
+        // style={{ height: "400px", borderRadius: "12px", zIndex: -10 }}
         style={{ height: "400px", borderRadius: "12px" }}
       >
         <TileLayer

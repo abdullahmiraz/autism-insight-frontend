@@ -38,32 +38,24 @@ export default function Navbar() {
         <div
           className={`md:flex md:items-center md:space-x-4 ${
             isOpen ? "block" : "hidden"
-          } w-full md:w-auto absolute md:relative top-16 md:top-0 left-0 md:flex bg-[#282828] md:bg-transparent p-4 md:p-0 shadow-lg md:shadow-none`}
+          } w-full md:w-auto absolute md:relative top-16 md:top-0 left-0 md:flex bg-[#282828] md:bg-transparent p-4 md:p-0 shadow-lg md:shadow-none z-10`}
         >
-          <Link
-            href="./detect"
-            className="block text-sm text-gray-300 hover:text-white hover:underline p-2"
-          >
-            Detect
-          </Link>
-          <Link
-            href="/progress"
-            className="block text-sm text-gray-300 hover:text-white hover:underline p-2"
-          >
-            Progress
-          </Link>
-          <Link
-            href="/centers"
-            className="block text-sm text-gray-300 hover:text-white hover:underline p-2"
-          >
-            Centers
-          </Link>
-          <Link
-            href="/about"
-            className="block text-sm text-gray-300 hover:text-white hover:underline p-2"
-          >
-            About Us
-          </Link>
+          {[
+            { href: "/", label: "Home" },
+            { href: "./detect", label: "Detect" },
+            { href: "/progress", label: "Progress" },
+            { href: "/centers", label: "Centers" },
+            { href: "/about", label: "About Us" },
+          ].map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setIsOpen(!isOpen)}
+              className="block text-sm text-gray-300 hover:text-white hover:underline p-2"
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
 
         <div className="hidden md:flex items-center space-x-4">
