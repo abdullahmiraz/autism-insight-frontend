@@ -1,5 +1,3 @@
-// lib/useAuth.ts
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -11,19 +9,20 @@ export const useAuth = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      console.log(user);
-      setLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setLoading(true);
 
-      // If the user is authenticated, set a cookie with a token
       if (user) {
-        user.getIdToken().then((token) => {
-          document.cookie = `userToken=${token}; path=/; max-age=3600`; // Cookie expires in 1 hour
-        });
+        const token = await user.getIdToken();
+        document.cookie = `userToken=${token}; path=/; max-age=3600`;
+
+        setUser(user);
       } else {
-        document.cookie = `userToken=; path=/; max-age=0`; // Clear cookie when the user logs out
+        document.cookie = "userToken=; path=/; max-age=0";
+        setUser(null);
       }
+
+      setLoading(false);
     });
 
     return unsubscribe;
