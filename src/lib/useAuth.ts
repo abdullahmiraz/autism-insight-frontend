@@ -13,7 +13,17 @@ export const useAuth = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
+      console.log(user);
       setLoading(false);
+
+      // If the user is authenticated, set a cookie with a token
+      if (user) {
+        user.getIdToken().then((token) => {
+          document.cookie = `userToken=${token}; path=/; max-age=3600`; // Cookie expires in 1 hour
+        });
+      } else {
+        document.cookie = `userToken=; path=/; max-age=0`; // Clear cookie when the user logs out
+      }
     });
 
     return unsubscribe;

@@ -14,6 +14,8 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
+      document.cookie = "userToken=; path=/; max-age=0"; // This clears the cookie
+      window.location.href = "/"; // return to homepage
     } catch (error) {
       console.error("Error signing out:", error);
     }
@@ -55,6 +57,12 @@ export default function Navbar() {
             className="block text-sm text-gray-300 hover:text-white hover:underline p-2"
           >
             Centers
+          </Link>
+          <Link
+            href="/about"
+            className="block text-sm text-gray-300 hover:text-white hover:underline p-2"
+          >
+            About Us
           </Link>
         </div>
 

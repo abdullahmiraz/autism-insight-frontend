@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -48,9 +48,12 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.8 }}
         >
-          <Button className="bg-yellow-500 text-blue-900 px-6 py-3 rounded hover:bg-yellow-600 transition">
+          <Link
+            href="./about"
+            className="bg-yellow-500 text-blue-900 px-6 py-3 rounded hover:bg-yellow-600 transition"
+          >
             Learn More
-          </Button>
+          </Link>
         </motion.div>
       </div>
     </section>
