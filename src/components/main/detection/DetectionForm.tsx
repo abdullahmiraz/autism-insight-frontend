@@ -2,7 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -17,73 +17,33 @@ import {
 import { Separator } from "@/components/ui/separator";
 import InitialQuery from "./InitialQuery";
 import SelectInput from "./SelectInput";
-
-// Define the questions array
-const questionsData = [
-  {
-    id: "A1",
-    label: " Does your child look at you when you call his/her name?",
-    options: ["No", "Yes"],
-  },
-  {
-    id: "A2",
-    label: " How easy is it for you to get eye contact with your child?",
-    // options: ["Easy", "Difficult"],
-    options: ["No", "Yes"],
-  },
-  {
-    id: "A3",
-    label:
-      "Does your child point to indicate that s/he wants something? (e.g. a toy that is out of reach)",
-    options: ["No", "Yes"],
-  },
-  {
-    id: "A4",
-    label:
-      "Does your child point to share interest with you? (e.g. pointing at an interesting sight)",
-    options: ["No", "Yes"],
-  },
-  {
-    id: "A5",
-    label:
-      "Does your child pretend? (e.g. care for dolls, talk on a toy phone)",
-    options: ["No", "Yes"],
-  },
-  {
-    id: "A6",
-    label: "Does your child follow where you’re looking?",
-    options: ["No", "Yes"],
-  },
-  {
-    id: "A7",
-    label:
-      "If you or someone else in the family is visibly upset, does your child show signs of wanting to comfort them? (e.g. stroking hair, hugging them)",
-    options: ["No", "Yes"],
-  },
-  {
-    id: "A8",
-    label: "Would you describe your child’s first words as:",
-    // options: ["Early", "Late"],
-    options: ["No", "Yes"],
-  },
-  {
-    id: "A9",
-    label: "Does your child use simple gestures? (e.g. wave goodbye)",
-    options: ["No", "Yes"],
-  },
-  {
-    id: "A10",
-    label: "Does your child stare at nothing with no apparent purpose?",
-    options: ["No", "Yes"],
-  },
-];
+import { useAuth } from "../../../lib/useAuth";
 
 export default function DetectionForm() {
+  const { user, loading } = useAuth();
+
   const { register, handleSubmit, reset } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [results, setResults] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // get the questions
+  const [questionsData, setQuestionsData] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const response = await fetch("/questionsData.json");
+        const data = await response.json();
+        setQuestionsData(data);
+      } catch (error) {
+        console.error("Error loading questions:", error);
+      }
+    };
+
+    fetchQuestions();
+  }, []);
 
   // Mutation for each API
   const videoMutation = useMutation({
@@ -167,6 +127,28 @@ export default function DetectionForm() {
     }
   };
 
+  const saveMutation = useMutation({
+    mutationFn: async () => {
+      // console.log(results);
+
+      if (!user) {
+        return alert("Please login to save the results");
+      }
+
+      const response = await axios.post("/api/save", {
+        results,
+        email: user && user.email,
+        uid: user && user.uid,
+      });
+
+      // console.log(response, results);
+      alert("Results saved successfully!");
+      setModalOpen(false);
+
+      return response.data;
+    },
+  });
+
   return (
     <div className="container mx-auto p-4 md:p-0 my-12">
       {/* Form Section */}
@@ -223,7 +205,7 @@ export default function DetectionForm() {
 
         {results && (
           <div>
-            <div className="text-center text-3xl font-bold underline">
+            <div className="text-center text-3xl font-bold underline mb-4">
               Predicted Result
             </div>{" "}
             <div className="space-y-4">
@@ -273,6 +255,19 @@ export default function DetectionForm() {
                 <strong>🖼️ Image Prediction:</strong>{" "}
                 {JSON.stringify(results?.images) || "N/A"}
               </p>
+
+              {/* Save & Cancel Buttons */}
+              <div className="flex justify-end space-x-4">
+                <Button
+                  onClick={() => saveMutation.mutate()}
+                  disabled={saveMutation.isPending}
+                >
+                  {saveMutation.isPending ? "Saving..." : "Save"}
+                </Button>
+                <Button variant="outline" onClick={() => setModalOpen(false)}>
+                  Cancel
+                </Button>
+              </div>
             </div>
           )}
         </DialogContent>
