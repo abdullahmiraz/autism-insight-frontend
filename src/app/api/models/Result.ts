@@ -16,8 +16,9 @@ const ResultSchema = new Schema(
         confidence: { type: Number, default: null },
       },
     ],
-    userId: { type: String, required: true },
+    userId: { type: String, required: true, unique: true },
     userEmail: { type: String, required: true },
+    autismCategory: { type: Number, default: null },
   },
   { timestamps: true }
 );

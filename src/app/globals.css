@@ -73,13 +73,25 @@ body {
   }
 }
 
-
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@media print {
+  html,
+  body {
+    height: 100vh; /* Use 100% here to support printing more than a single page*/
+    margin: 20px !important;
+    /* padding: 20px !important; */
+    overflow: hidden;
+  }
+
+  .printHide {
+    display: none;
   }
 }

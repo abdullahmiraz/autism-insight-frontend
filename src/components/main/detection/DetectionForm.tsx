@@ -7,45 +7,35 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+
 import { Separator } from "@/components/ui/separator";
 import InitialQuery from "./InitialQuery";
 import SelectInput from "./SelectInput";
 import { useAuth } from "../../../lib/useAuth";
+import ResultsDialog from "./setup/ResultsDialog";
 
 export default function DetectionForm() {
   const { user, loading } = useAuth();
-
   const { register, handleSubmit, reset } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [results, setResults] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
-
-  // get the questions
   const [questionsData, setQuestionsData] = useState<any[]>([]);
+  const [suggestionsData, setSuggestionsData] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await fetch("/questionsData.json");
-        const data = await response.json();
-        setQuestionsData(data);
-      } catch (error) {
-        console.error("Error loading questions:", error);
-      }
-    };
+    fetch("/questionsData.json")
+      .then((res) => res.json())
+      .then(setQuestionsData)
+      .catch((err) => console.error("Error loading questions:", err));
 
-    fetchQuestions();
+    fetch("/suggestionsData.json")
+      .then((res) => res.json())
+      .then(setSuggestionsData)
+      .catch((err) => console.error("Error loading suggestions:", err));
   }, []);
 
-  // Mutation for each API
   const videoMutation = useMutation({
     mutationFn: async (video: File) => {
       const formData = new FormData();
@@ -83,7 +73,6 @@ export default function DetectionForm() {
     },
   });
 
-  // Form submission
   const onSubmit = async (data: any) => {
     setIsLoading(true);
     setModalOpen(true);
@@ -119,35 +108,13 @@ export default function DetectionForm() {
         video: videoResult,
         images: imagesResult,
       });
-    } catch (err: any) {
+    } catch (err) {
       setError("Failed to fetch predictions. Please try again.");
     } finally {
       reset();
       setIsLoading(false);
     }
   };
-
-  const saveMutation = useMutation({
-    mutationFn: async () => {
-      // console.log(results);
-
-      if (!user) {
-        return alert("Please login to save the results");
-      }
-
-      const response = await axios.post("/api/save", {
-        results,
-        email: user && user.email,
-        uid: user && user.uid,
-      });
-
-      // console.log(response, results);
-      alert("Results saved successfully!");
-      setModalOpen(false);
-
-      return response.data;
-    },
-  });
 
   return (
     <div className="container mx-auto p-4 md:p-0 my-12">
@@ -160,17 +127,23 @@ export default function DetectionForm() {
         <Separator />
 
         {/* Dynamic Questions */}
-        <div className="space-y-4">
-          {questionsData.map((question, index) => (
-            <SelectInput
-              key={question.id}
-              label={question.label}
-              name={`questions.${question.id}`}
-              index={index}
-              options={question.options}
-              register={register}
-              required
-            />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {questionsData?.map((question, index) => (
+            <div
+              key={question?.id}
+              className={`p-2 rounded ${
+                index % 2 === 0 ? "bg-blue-100" : "bg-green-100"
+              }`}
+            >
+              <SelectInput
+                label={question?.label}
+                name={`questions.${question.id}`}
+                index={index}
+                options={question.options}
+                register={register}
+                required
+              />
+            </div>
           ))}
         </div>
 
@@ -202,76 +175,18 @@ export default function DetectionForm() {
           Analyze Symptoms
         </Button>
         <Separator />
-
-        {results && (
-          <div>
-            <div className="text-center text-3xl font-bold underline mb-4">
-              Predicted Result
-            </div>{" "}
-            <div className="space-y-4">
-              <p>
-                <strong>📊 Questionnaire Prediction:</strong>{" "}
-                {JSON.stringify(results?.form) || "N/A"}
-              </p>
-              <p>
-                <strong>🎥 Video Prediction:</strong>{" "}
-                {JSON.stringify(results?.video) || "N/A"}
-              </p>
-              <p>
-                <strong>🖼️ Image Prediction:</strong>{" "}
-                {JSON.stringify(results?.images) || "N/A"}
-              </p>
-            </div>
-          </div>
-        )}
       </form>
 
-      {/* Modal for Loading and Results */}
-      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{isLoading ? "Analyzing..." : "Results"}</DialogTitle>
-          </DialogHeader>
-
-          {isLoading ? (
-            <DialogDescription className="text-center">
-              🔄 Please wait while we analyze the data...
-            </DialogDescription>
-          ) : error ? (
-            <DialogDescription className="text-red-600">
-              ❌ {error}
-            </DialogDescription>
-          ) : (
-            <div className="space-y-4">
-              <p>
-                <strong>📊 Questionnaire Prediction:</strong>{" "}
-                {JSON.stringify(results?.form) || "N/A"}
-              </p>
-              <p>
-                <strong>🎥 Video Prediction:</strong>{" "}
-                {JSON.stringify(results?.video) || "N/A"}
-              </p>
-              <p>
-                <strong>🖼️ Image Prediction:</strong>{" "}
-                {JSON.stringify(results?.images) || "N/A"}
-              </p>
-
-              {/* Save & Cancel Buttons */}
-              <div className="flex justify-end space-x-4">
-                <Button
-                  onClick={() => saveMutation.mutate()}
-                  disabled={saveMutation.isPending}
-                >
-                  {saveMutation.isPending ? "Saving..." : "Save"}
-                </Button>
-                <Button variant="outline" onClick={() => setModalOpen(false)}>
-                  Cancel
-                </Button>
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+      {/* Modal */}
+      <ResultsDialog
+        isOpen={modalOpen}
+        setIsOpen={setModalOpen}
+        isLoading={isLoading}
+        error={error}
+        results={results}
+        suggestionsData={suggestionsData}
+        user={user}
+      />
     </div>
   );
 }

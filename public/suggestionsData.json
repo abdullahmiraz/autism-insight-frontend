@@ -1,0 +1,33 @@
+[
+  {
+    "limit": 0.3,
+    "category": 1,
+    "status": "Low risk",
+    "suggestion": [
+      "Maintain good hygiene",
+      "Monitor child's behavior regularly",
+      "Ensure a balanced diet",
+      "Engage in interactive activities"
+    ]
+  },
+
+  {
+    "limit": 0.5,
+    "category": 2,
+    "status": "Moderate risk",
+    "suggestion": [
+      "Schedule a consultation with a child psychologist",
+      "Join a support group for guidance"
+    ]
+  },
+  {
+    "limit": 1,
+    "category": 3,
+    "status": "High risk",
+    "suggestion": [
+      "Seek immediate medical evaluation",
+      "Consult an autism specialist",
+      "Start early intervention therapy"
+    ]
+  }
+]

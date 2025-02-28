@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 import ResultModel from "../models/Result";
 
 // MongoDB Connection
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/autism-db";
+const MONGODB_URI = "mongodb://localhost:27017/autism-db";
+// process.env.MONGODB_URI || "mongodb://localhost:27017/autism-db";
 
 async function connectDB() {
   if (mongoose.connection.readyState === 1) return;
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
   try {
     await connectDB();
 
-    const { uid, email, results: body } = await req.json();
+    const { uid, email, autismCategory, results: body } = await req.json();
 
     // Ensure required `form` fields exist
     if (
@@ -30,9 +30,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const existingResult = await ResultModel.findOne({ userId: uid });
+    if (existingResult) {
+      return NextResponse.json(
+        { error: "User has already submitted data" },
+        { status: 400 }
+      );
+    }
+
     // Default empty values for optional fields
     const resultData = {
       form: body.form,
+      autismCategory: autismCategory,
       video: body.video || { prediction: null, confidence: null },
       images: body.images || [],
       userId: uid,

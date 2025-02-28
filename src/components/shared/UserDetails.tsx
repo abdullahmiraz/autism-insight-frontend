@@ -49,6 +49,17 @@ export default function UserDetails() {
             <strong>UID:</strong> {user.uid}
           </p>
         </div>
+
+        <div className="my-4 font-bold text-center text-3xl">
+          Print your reports here
+        </div>
+        <Button
+          onClick={() => {
+            window.location.href = "/progress#report";
+          }}
+        >
+          Reports
+        </Button>
       </div>
     </div>
   );
