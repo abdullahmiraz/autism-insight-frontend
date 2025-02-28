@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="opcitiy-50 text-slate-700 my-2">
         Developed by{" "}
         <Link href="https://www.linkedin.com/in/abdullahmiraz/">
-          Abdullah Miraz
+          Humayra tabassum, Myful kobir tori, Mehnaj dinu
         </Link>
       </div>
     </footer>
