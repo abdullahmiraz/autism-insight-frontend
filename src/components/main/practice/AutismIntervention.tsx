@@ -389,6 +389,12 @@ export default function AutismIntervention({
     }
   };
 
+  const isWeekCompleted = (week: number) => {
+    return autismPlans[autismCategory][week - 1]?.suggestions.every(
+      (_, index) => checkedItems[`week-${week}-${index}`]
+    );
+  };
+
   const autismLevels: { [key: number]: { label: string; color: string } } = {
     1: { label: "Mild Autism", color: "bg-blue-500" },
     2: { label: "Moderate Autism", color: "bg-yellow-500" },
@@ -400,12 +406,16 @@ export default function AutismIntervention({
         {autismLevels[autismCategory] && (
           <TabsTrigger
             value={String(autismCategory)}
-            className={`${autismLevels[autismCategory].color} text-white p-2 rounded-lg`}
+            className={`${autismLevels[autismCategory].color} text-white p-2 rounded-lg w-full`}
           >
             {autismLevels[autismCategory].label}
           </TabsTrigger>
         )}
       </TabsList>
+
+      <div className="text-sm italic text-red-500 my-4">
+        Complete previous week before jumping to the next
+      </div>
 
       <TabsContent
         value={String(autismCategory)}
@@ -414,7 +424,13 @@ export default function AutismIntervention({
         <Accordion type="single" collapsible className="w-full">
           {autismPlans[autismCategory]?.map(
             (weekData: any, weekIndex: number) => (
-              <AccordionItem key={weekIndex} value={`week-${weekData.week}`}>
+              <AccordionItem
+                key={weekIndex}
+                value={`week-${weekData.week}`}
+                disabled={
+                  weekData.week > 1 && !isWeekCompleted(weekData.week - 1)
+                }
+              >
                 <AccordionTrigger>Week {weekData.week}</AccordionTrigger>
                 <AccordionContent>
                   <ul className="space-y-2">

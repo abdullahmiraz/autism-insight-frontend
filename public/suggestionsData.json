@@ -1,13 +1,12 @@
 [
   {
-    "limit": 0.3,
-    "category": 1,
-    "status": "Low risk",
+    "limit": 1,
+    "category": 3,
+    "status": "High risk",
     "suggestion": [
-      "Maintain good hygiene",
-      "Monitor child's behavior regularly",
-      "Ensure a balanced diet",
-      "Engage in interactive activities"
+      "Seek immediate medical evaluation",
+      "Consult an autism specialist",
+      "Start early intervention therapy"
     ]
   },
 
@@ -21,13 +20,14 @@
     ]
   },
   {
-    "limit": 1,
-    "category": 3,
-    "status": "High risk",
+    "limit": 0.3,
+    "category": 1,
+    "status": "Low risk",
     "suggestion": [
-      "Seek immediate medical evaluation",
-      "Consult an autism specialist",
-      "Start early intervention therapy"
+      "Maintain good hygiene",
+      "Monitor child's behavior regularly",
+      "Ensure a balanced diet",
+      "Engage in interactive activities"
     ]
   }
 ]

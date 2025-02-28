@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Line } from "react-chartjs-2";
+// import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   LineElement,
@@ -54,6 +54,7 @@ export default function ProgressChart() {
       });
 
       const result = await response.json();
+      console.log(result);
       if (response.ok) {
         setProgressData(result);
         setAutismCategory(result[0]?.autismCategory);
@@ -95,6 +96,7 @@ export default function ProgressChart() {
       });
 
       const result = await response.json();
+
       if (response.ok) {
         alert("Entry deleted successfully!");
         setProgressData(progressData.filter((entry) => entry._id !== id));
@@ -112,12 +114,12 @@ export default function ProgressChart() {
   return (
     <div className="container mx-auto p-4 my-12">
       <div className="flex flex-col lg:flex-row space-y-8 lg:space-x-8 lg:space-y-0">
-        <div className="flex-1">
+        {/* <div className="flex-1">
           <h2 className="text-xl font-semibold mb-4 text-center">
             Progress Over Time
           </h2>
           <Line data={data} />
-        </div>
+        </div> */}
 
         <div className="flex-1 mt-8 lg:mt-0 flex flex-col justify-between items-end space-y-8">
           <div>

@@ -155,6 +155,7 @@ export default function DetectionForm() {
           <input
             type="file"
             {...register("images")}
+            required
             accept=".png, .jpeg, .jpg"
             multiple
             className="w-full p-2 border rounded-md"
@@ -166,6 +167,7 @@ export default function DetectionForm() {
           <input
             type="file"
             {...register("video")}
+            required
             accept=".avi, .mp4"
             className="w-full p-2 border rounded-md"
           />

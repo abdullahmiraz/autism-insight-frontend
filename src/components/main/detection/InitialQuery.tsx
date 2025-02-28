@@ -12,12 +12,14 @@ export default function InitialQuery({ register }: InitialQueryProps) {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {/* Age in Months */}
         <div>
-          <label className="block font-semibold">Age (Months)</label>
+          <label className="block font-semibold">
+            Age (Months- max 5 years)
+          </label>
           <input
             type="number"
             {...register("age_mons", { required: true })}
             min={1}
-            // max={10000}
+            max={60}
             className="w-full p-2 border rounded-md"
           />
         </div>
