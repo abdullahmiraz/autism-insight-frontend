@@ -78,38 +78,41 @@ export default function ResultsDialog({
 
   const getAutismResult = (
     results: {
-      form?: { confidence?: number; prediction?: boolean };
-      video?: { confidence?: number; prediction?: boolean };
-      images?: { confidence: number; prediction: boolean }[];
+      form?: { prediction?: number };
+      video?: { prediction?: number };
+      images?: { prediction?: number }[];
     } | null,
     suggestionsData: SuggestionEntry[]
   ): AutismResult | null => {
     if (!results) return null;
 
-    const predictions = [
-      results.form?.confidence || 0,
-      results.video?.confidence || 0,
-      ...(results.images?.map(
-        (img: { confidence: number }) => img.confidence
-      ) || []),
-    ];
+    // Count number of detections:
+    const detections = [
+      results.form?.prediction === 1, // Form: 1 means detected
+      results.video?.prediction === 0, // Video: 0 means detected
+      ...(results.images?.map((img) => img.prediction === 0) || []), // Images: 0 means detected
+    ].filter(Boolean).length; // Count only true values
 
-    const avgConfidence =
-      predictions.length > 0
-        ? predictions.reduce((acc, val) => acc + val, 0) / predictions.length
-        : 0;
+    console.log("Total Detections:", detections);
 
-    console.log("Avg Confidence:", avgConfidence);
+    // Determine autism severity based on detections
+    const severityLevel =
+      detections === 1
+        ? "Low"
+        : detections === 2
+        ? "Mid"
+        : detections === 3
+        ? "Extreme"
+        : "None";
 
-    // Find highest matching category based on avgConfidence
+    // Find the corresponding category from suggestionsData
     const categoryEntry =
-      [...suggestionsData]
-        .reverse()
-        .find((entry) => avgConfidence >= entry.limit) || suggestionsData[0];
+      suggestionsData.find(
+        (entry) => entry.status.toLowerCase() === severityLevel.toLowerCase()
+      ) || suggestionsData[0];
 
     const autismCategory = categoryEntry.category;
-    console.log(autismCategory);
-    const autismStatus = categoryEntry.status; // Changed this line to get autismStatus
+    const autismStatus = categoryEntry.status;
 
     const riskColor =
       autismCategory === 3
@@ -142,27 +145,31 @@ export default function ResultsDialog({
         ) : (
           <div className="space-y-4">
             <p>
-              <strong>📊 Questionnaire Result:</strong>{" "}
-              {results?.form?.prediction ? "Detected" : "Not Detected"}
+              <strong>📊 Questionnaire Result:</strong>
+              {results?.form?.prediction == 1
+                ? " Autism  Detected"
+                : " Autism Not Detected"}
             </p>
             <p>
-              <strong>🎥 Video Analysis:</strong>{" "}
-              {results?.video?.prediction !== null
-                ? results?.video?.prediction
-                  ? "Detected"
-                  : "Not Detected"
-                : "Not Provided"}
+              <strong>🎥 Video Analysis:</strong>
+              {results?.video === undefined || results?.video === null
+                ? " File Not Provided"
+                : results?.video?.prediction == 0
+                ? " Autism Detected"
+                : " Autism Not Detected"}
             </p>
+
             <p>
-              <strong>🖼️ Image Analysis:</strong>{" "}
+              <strong>🖼️ Image Analysis:</strong>
               {results?.images?.length
                 ? results.images.some(
-                    (img: { prediction: boolean }) => img?.prediction
+                    (img: { prediction: number }) => img.prediction === 0
                   )
-                  ? "Detected"
-                  : "Not Detected"
-                : "Not Provided"}
+                  ? " Autism Detected"
+                  : " Autism Not Detected"
+                : " File Not Provided"}
             </p>
+
             {(() => {
               const autismResult = getAutismResult(results, suggestionsData);
               return autismResult ? (
