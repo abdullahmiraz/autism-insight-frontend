@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 import ResultModel from "../models/Result";
 
 // MongoDB Connection
-const MONGODB_URI = "mongodb://localhost:27017/autism-db";
+const MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost:27017/autism-db";
+// "mongodb://localhost:27017/autism-db";
 
 async function connectDB() {
   if (mongoose.connection.readyState === 1) return;
