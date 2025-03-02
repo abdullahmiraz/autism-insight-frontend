@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { useAuth } from "../../lib/useAuth";
 import AutismIntervention from "./practice/AutismIntervention";
 import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
+// import { Separator } from "../ui/separator";
 import { useReactToPrint } from "react-to-print";
 import {
   BarChart,
