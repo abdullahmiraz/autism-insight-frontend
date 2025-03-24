@@ -155,7 +155,9 @@ export default function AutismIntervention({
         </TabsList>
 
         <div className="text-sm italic text-red-500 my-4">
-          Complete previous week before jumping to the next
+          Complete previous week before jumping to the next (
+          <span className="font-bold">Note</span>: Only the first detection data
+          will be counted from the table)
         </div>
 
         <TabsContent
