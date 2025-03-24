@@ -2,7 +2,7 @@
 // pages/auth.tsx
 "use client";
 import { useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { googleSignIn, loginWithEmail, signUpWithEmail } from "../../lib/auth";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -12,7 +12,7 @@ const AuthPage = () => {
   const [password, setPassword] = useState<string>("");
   const [isSignUp, setIsSignUp] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-  const router = useRouter();
+  // const router = useRouter();
 
   // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
@@ -25,7 +25,7 @@ const AuthPage = () => {
       } else {
         await loginWithEmail({ email, password });
         alert("Logged in successfully!");
-        router.push("/detect"); // Redirect to  after login
+        window.location.href = "/detect"; // Full redirect
       }
     } catch (err: any) {
       setError(err.message);
@@ -36,7 +36,7 @@ const AuthPage = () => {
   const handleGoogleLogin = async () => {
     try {
       await googleSignIn();
-      router.push("/detect"); // Redirect to  after Google login
+      window.location.href = "/detect"; // Full redirect
     } catch (err: any) {
       setError(err.message);
     }
