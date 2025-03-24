@@ -25,7 +25,7 @@ const AuthPage = () => {
       } else {
         await loginWithEmail({ email, password });
         alert("Logged in successfully!");
-        router.push("/"); // Redirect to  after login
+        router.push("/detect"); // Redirect to  after login
       }
     } catch (err: any) {
       setError(err.message);
@@ -36,7 +36,7 @@ const AuthPage = () => {
   const handleGoogleLogin = async () => {
     try {
       await googleSignIn();
-      router.push("/"); // Redirect to  after Google login
+      router.push("/detect"); // Redirect to  after Google login
     } catch (err: any) {
       setError(err.message);
     }
