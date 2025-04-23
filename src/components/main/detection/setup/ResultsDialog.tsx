@@ -79,7 +79,7 @@ export default function ResultsDialog({
   const getAutismResult = (
     results: {
       form?: { prediction?: number };
-      video?: { prediction?: number };
+      videos?: { prediction?: number };
       images?: { prediction?: number }[];
     } | null,
     suggestionsData: SuggestionEntry[]
@@ -89,9 +89,10 @@ export default function ResultsDialog({
     // Count number of detections:
     const detections = [
       results.form?.prediction === 1, // Form: 1 means detected
-      results.video?.prediction === 0, // Video: 0 means detected
-      ...(results.images?.map((img) => img.prediction === 0) || []), // Images: 0 means detected
-    ].filter(Boolean).length; // Count only true values
+      Array.isArray(results.videos) &&
+        results.videos.some((v) => v.prediction === 0), // Any video detected
+      ...(results.images?.map((img) => img.prediction === 0) || []), // Image detections
+    ].filter(Boolean).length;
 
     console.log("Total Detections:", detections);
 
@@ -152,9 +153,11 @@ export default function ResultsDialog({
             </p>
             <p>
               <strong>🎥 Video Analysis:</strong>
-              {results?.video === undefined || results?.video === null
+              {!Array.isArray(results?.videos) || results.videos.length === 0
                 ? " File Not Provided"
-                : results?.video?.prediction == 0
+                : results.videos.some(
+                    (vid: { prediction: number }) => vid.prediction === 0
+                  )
                 ? " Autism Detected"
                 : " Autism Not Detected"}
             </p>

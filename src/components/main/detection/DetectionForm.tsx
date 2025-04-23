@@ -36,12 +36,12 @@ export default function DetectionForm() {
       .catch((err) => console.error("Error loading suggestions:", err));
   }, []);
 
-  const videoMutation = useMutation({
-    mutationFn: async (video: File) => {
+  const videosMutation = useMutation({
+    mutationFn: async (videos: FileList) => {
       const formData = new FormData();
-      formData.append("video", video);
+      Array.from(videos).forEach((video) => formData.append("videos", video));
       const response = await axios.post(
-        "http://127.0.0.1:8000/predict-video",
+        "http://127.0.0.1:8000/predict-videos",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -93,10 +93,10 @@ export default function DetectionForm() {
     };
 
     try {
-      const [formResult, videoResult, imagesResult] = await Promise.all([
+      const [formResult, videosResult, imagesResult] = await Promise.all([
         formMutation.mutateAsync(formattedData),
-        data.video?.[0]
-          ? videoMutation.mutateAsync(data.video[0])
+        data.videos?.length > 0
+          ? videosMutation.mutateAsync(data.videos)
           : Promise.resolve(null),
         data.images?.length > 0
           ? imagesMutation.mutateAsync(data.images)
@@ -105,7 +105,7 @@ export default function DetectionForm() {
 
       setResults({
         form: formResult,
-        video: videoResult,
+        videos: videosResult,
         images: imagesResult,
       });
     } catch (err) {
@@ -163,12 +163,13 @@ export default function DetectionForm() {
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold">Upload Video (avi, mp4)</h3>
+          <h3 className="text-lg font-semibold">Upload Videos (avi, mp4)</h3>
           <input
             type="file"
-            {...register("video")}
+            {...register("videos")}
             required
             accept=".avi, .mp4"
+            multiple
             className="w-full p-2 border rounded-md"
           />
         </div>
