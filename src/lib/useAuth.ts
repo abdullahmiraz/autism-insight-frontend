@@ -12,7 +12,7 @@ export const useAuth = () => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setLoading(true);
 
-      if (user) {
+      if (user && user.emailVerified) {
         const token = await user.getIdToken();
         document.cookie = `userToken=${token}; path=/; max-age=3600`;
 

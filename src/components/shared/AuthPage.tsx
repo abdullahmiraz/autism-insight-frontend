@@ -22,6 +22,7 @@ const AuthPage = () => {
       if (isSignUp) {
         await signUpWithEmail({ email, password });
         alert("Check your email to verify your account!");
+        window.location.href = "/detect"; // Full redirect
       } else {
         await loginWithEmail({ email, password });
         alert("Logged in successfully!");
@@ -62,8 +63,13 @@ const AuthPage = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               className="w-full p-2 mt-1 border rounded"
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+              title="Please enter a valid email address (e.g., name@example.com)"
               required
             />
+            <p className="text-xs text-gray-500 mt-1">
+              Enter a valid email address (e.g., name@example.com)
+            </p>
           </div>
 
           <div>
@@ -78,6 +84,9 @@ const AuthPage = () => {
               className="w-full p-2 mt-1 border rounded"
               required
             />
+            <p className="text-xs text-gray-500 mt-1">
+              Must be of 6 characters or more
+            </p>
           </div>
         </div>
 
