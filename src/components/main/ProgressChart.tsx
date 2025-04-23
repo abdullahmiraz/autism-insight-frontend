@@ -23,7 +23,6 @@ export default function ProgressChart() {
   const [progressData, setProgressData] = useState<any[]>([]);
   const [autismCategory, setAutismCategory] = useState<string | null>(null);
   const [graphData, setGraphData] = useState<any[]>([]);
-  const [reportType, setReportType] = useState("monthly");
 
   const contentRef = useRef<HTMLTableElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef });
@@ -44,31 +43,7 @@ export default function ProgressChart() {
       const result = await response.json();
       console.log(result);
       if (response.ok) {
-        const filterByType = (data: any[], type: string) => {
-          const now = new Date();
-          return data.filter((entry) => {
-            const entryDate = new Date(entry.createdAt);
-            if (type === "monthly") {
-              return (
-                entryDate.getFullYear() === now.getFullYear() &&
-                entryDate.getMonth() === now.getMonth()
-              );
-            }
-            if (type === "quarterly") {
-              const currentQuarter = Math.floor(now.getMonth() / 3);
-              return (
-                entryDate.getFullYear() === now.getFullYear() &&
-                Math.floor(entryDate.getMonth() / 3) === currentQuarter
-              );
-            }
-            if (type === "yearly") {
-              return entryDate.getFullYear() === now.getFullYear();
-            }
-            return true;
-          });
-        };
-        setProgressData(filterByType(result, reportType));
-
+        setProgressData(result);
         setAutismCategory(result[0]?.autismCategory);
 
         // Set up data for the chart
@@ -193,19 +168,9 @@ export default function ProgressChart() {
         </div>
       </div>
 
-      <div className="flex items-center space-x-4 mb-6">
-        <select
-          onChange={(e) => setReportType(e.target.value)}
-          className="border rounded p-2"
-          defaultValue="monthly"
-        >
-          <option value="monthly">Monthly</option>
-          <option value="quarterly">Quarterly</option>
-          <option value="yearly">Yearly</option>
-        </select>
-        <Button onClick={() => reactToPrintFn()}>Download Report</Button>
+      <div id="report">
+        <Button onClick={() => reactToPrintFn()}>Print Report</Button>
       </div>
-
       <div className="mt-8">
         <AutismIntervention
           autismCategory={Number(autismCategory)}
