@@ -14,6 +14,11 @@ const AuthPage = () => {
   const [error, setError] = useState<string>("");
   // const router = useRouter();
 
+  const NEXT_PUBLIC_ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+  const NEXT_PUBLIC_ADMIN_PASS = process.env.NEXT_PUBLIC_ADMIN_PASS;
+
+  console.log(NEXT_PUBLIC_ADMIN_EMAIL, NEXT_PUBLIC_ADMIN_PASS);
+
   // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -24,9 +29,14 @@ const AuthPage = () => {
         alert("Check your email to verify your account!");
         window.location.href = "/detect"; // Full redirect
       } else {
-        await loginWithEmail({ email, password });
-        alert("Logged in successfully!");
-        window.location.href = "/detect"; // Full redirect
+        if (email === NEXT_PUBLIC_ADMIN_EMAIL && password === NEXT_PUBLIC_ADMIN_PASS) {
+          alert("Logged in successfully!");
+          window.location.href = "/admin"; // Full redirect
+        } else {
+          await loginWithEmail({ email, password });
+          alert("Logged in successfully!");
+          window.location.href = "/detect"; // Full redirect
+        }
       }
     } catch (err: any) {
       setError(err.message);

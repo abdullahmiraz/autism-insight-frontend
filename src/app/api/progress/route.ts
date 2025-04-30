@@ -71,3 +71,28 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+
+// delete progress
+export async function DELETE(req: NextRequest) {
+  try {
+    await connectDB();
+    const { userId } = await req.json();
+
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    await ProgressModel.deleteOne({ userId });
+    return NextResponse.json({ message: "Progress deleted" }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to delete progress" },
+      { status: 500 }
+    );
+  }
+}
+
+
+
+
