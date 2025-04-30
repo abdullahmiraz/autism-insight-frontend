@@ -1,13 +1,11 @@
 'use client'
 // admin page
 
-import React, { useState, useEffect, useRef } from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useReactToPrint } from "react-to-print";
+import { ArcElement, Chart, Legend, Tooltip } from "chart.js";
+import { useEffect, useRef, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
-import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
+import { useReactToPrint } from "react-to-print";
 Chart.register(ArcElement, Tooltip, Legend);
 
 interface Result {
@@ -31,16 +29,6 @@ interface Result {
     createdAt: string;
 }
 
-interface Progress {
-    _id: string;
-    userId: string;
-    autismCategory: number;
-    progress: Array<{
-        week: number;
-        checkedIndexes: number[];
-        _id: string;
-    }>;
-}
 
 const AdminPage = () => {
     const [results, setResults] = useState<Result[]>([]);

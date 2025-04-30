@@ -13,7 +13,7 @@ async function connectDB() {
 }
 
 // GET API to fetch user's progress data
-export async function GET(req: NextRequest) {
+export async function GET( ) {
   try {
     await connectDB();
     const results = await ResultModel.find();

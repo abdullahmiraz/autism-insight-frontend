@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../lib/useAuth";
-import AutismIntervention from "./practice/AutismIntervention";
 import { Button } from "../ui/button";
+import AutismIntervention from "./practice/AutismIntervention";
 // import { Separator } from "../ui/separator";
 import { useReactToPrint } from "react-to-print";
 import {
-  BarChart,
   Bar,
+  BarChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  ResponsiveContainer,
 } from "recharts";
 
 export default function ProgressChart() {
