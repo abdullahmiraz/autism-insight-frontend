@@ -6,6 +6,7 @@ import { useState, FormEvent } from "react";
 import { googleSignIn, loginWithEmail, signUpWithEmail } from "../../lib/auth";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import Link from "next/link";
 
 const AuthPage = () => {
   const [email, setEmail] = useState<string>("");
@@ -99,6 +100,17 @@ const AuthPage = () => {
               Must be of 6 characters or more
             </p>
           </div>
+        </div>
+
+        {/* forgot password  */}
+        <div>
+          <p className="text-sm text-gray-500 mt-1">
+            {isSignUp ? "" : (
+              <Link href="/forgot-password" className="text-blue-500 hover:underline">
+                Forgot password? Reset Password
+              </Link>
+            )}
+          </p>
         </div>
 
         <Button

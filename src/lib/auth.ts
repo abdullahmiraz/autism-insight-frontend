@@ -6,6 +6,7 @@ import {
   sendEmailVerification,
   signInWithPopup,
   GoogleAuthProvider,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "./firebase";
 
@@ -62,6 +63,19 @@ export const googleSignIn = async () => {
   try {
     const userCredential = await signInWithPopup(auth, provider);
     return userCredential;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("An unexpected error occurred");
+  }
+};
+
+// Password Reset
+export const resetPassword = async (email: string) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    return true;
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(error.message);
