@@ -6,6 +6,7 @@ import { ArcElement, Chart, Legend, Tooltip } from "chart.js";
 import { useEffect, useRef, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { useReactToPrint } from "react-to-print";
+import { useRouter } from "next/navigation";
 Chart.register(ArcElement, Tooltip, Legend);
 
 interface Result {
@@ -29,15 +30,13 @@ interface Result {
     createdAt: string;
 }
 
-
 const AdminPage = () => {
+    const router = useRouter();
     const [results, setResults] = useState<Result[]>([]);
     const [progressMap, setProgressMap] = useState<Record<string, any>>({});
     const [loading, setLoading] = useState(true);
     const contentRef = useRef<HTMLTableElement>(null);
     const reactToPrintFn = useReactToPrint({ contentRef });
-
-
 
     const deleteProgress = async (userId: string) => {
         const res = await fetch("/api/progress", {
@@ -49,6 +48,13 @@ const AdminPage = () => {
     }
 
     useEffect(() => {
+        // Check for admin token
+        const adminToken = document.cookie.split('; ').find(row => row.startsWith('adminToken='));
+        if (!adminToken) {
+            router.push('/login');
+            return;
+        }
+
         const fetchData = async () => {
             try {
                 setLoading(true);
@@ -76,7 +82,7 @@ const AdminPage = () => {
             }
         };
         fetchData();
-    }, []);
+    }, [router]);
 
     const getCategoryText = (category: number) => {
         switch (category) {
@@ -119,7 +125,13 @@ const AdminPage = () => {
 
     return (
         <div className="container mx-auto p-4 space-y-6">
-            <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+            <div className="flex justify-between items-center">
+                <h1 className="text-3xl font-bold  ">Admin Dashboard</h1>
+                <Button variant={"destructive"} onClick={() => {
+                    document.cookie = "adminToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    router.push('/login');
+                }}>Logout</Button>
+            </div>
 
             <div>
                 <div>

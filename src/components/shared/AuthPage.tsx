@@ -29,6 +29,8 @@ const AuthPage = () => {
         window.location.href = "/detect"; // Full redirect
       } else {
         if (email === NEXT_PUBLIC_ADMIN_EMAIL && password === NEXT_PUBLIC_ADMIN_PASS) {
+          // Set admin token cookie
+          document.cookie = `adminToken=${btoa(email + password)}; path=/; max-age=86400`; // 24 hours expiry
           alert("Logged in successfully!");
           window.location.href = "/admin"; // Full redirect
         } else {
