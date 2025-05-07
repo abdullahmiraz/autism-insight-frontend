@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { NextRequest, NextResponse } from "next/server";
+ 
 import mongoose from "mongoose";
+import { NextRequest, NextResponse } from "next/server";
 import ProgressModel from "../models/Progress";
 
 // MongoDB Connection

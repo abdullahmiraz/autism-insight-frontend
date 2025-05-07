@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+ "use client";
 
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../lib/useAuth";

@@ -37,7 +37,7 @@ const ForgotPasswordPage = () => {
                 <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
                     <p>Password reset email sent! Please check your inbox.</p>
                     <p className="text-sm mt-2">
-                        Didn't receive the email? Check your spam folder or{" "}
+                        Didn&apos;t receive the email? Check your spam folder or{" "}
                         <button
                             onClick={() => setSuccess(false)}
                             className="text-green-700 underline"

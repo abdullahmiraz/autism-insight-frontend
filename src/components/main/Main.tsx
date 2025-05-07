@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-"use client";
+ "use client";
 
 import React from "react";
 import { useAuth } from "../../lib/useAuth";

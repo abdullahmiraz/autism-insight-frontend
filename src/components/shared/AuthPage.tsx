@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// pages/auth.tsx
+ // pages/auth.tsx
 "use client";
 import { useState, FormEvent } from "react";
 // import { useRouter } from "next/navigation";
