@@ -1,13 +1,13 @@
 // pages/auth.tsx
 "use client";
-import { useState, FormEvent, useEffect } from "react";
+import { useState, FormEvent, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { googleSignIn, loginWithEmail, signUpWithEmail } from "../../lib/auth";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import Link from "next/link";
 
-const AuthPage = () => {
+const AuthPageContent = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isSignUp, setIsSignUp] = useState<boolean>(true);
@@ -140,6 +140,14 @@ const AuthPage = () => {
         </p>
       </div>
     </div>
+  );
+};
+
+const AuthPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AuthPageContent />
+    </Suspense>
   );
 };
 
