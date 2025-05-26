@@ -11,15 +11,27 @@ import {
 } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useAuth } from "../../../lib/useAuth";
-
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
 import axios from "axios";
+
+interface Suggestion {
+  title: string;
+  description: string;
+}
+
+interface WeekData {
+  week: number;
+  suggestions: Suggestion[];
+}
+
+interface AutismPlans {
+  [key: string]: WeekData[];
+}
 
 export default function AutismIntervention({
   autismCategory,
@@ -29,25 +41,25 @@ export default function AutismIntervention({
   setGraphData: any;
 }) {
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
-  const [autismPlans, setAutismPlans] = useState<any>({});
+  const [autismPlans, setAutismPlans] = useState<AutismPlans>({});
   const { user } = useAuth();
   const userId = user?.uid;
 
-  console.log(userId);
-
   useEffect(() => {
-    fetch("/autismPlansData.json")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+    const fetchPlans = async () => {
+      try {
+        const response = await fetch("/autismPlansData.json");
+        const data = await response.json();
+        console.log("Fetched autism plans:", data);
         setAutismPlans(data);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
+      } catch (error) {
+        console.error("Error fetching autism plans:", error);
+      }
+    };
+    fetchPlans();
   }, []);
 
-  console.log(autismPlans);
-
-  // 📌 Fetch saved progress from API
+  // Fetch saved progress from API
   useEffect(() => {
     async function fetchProgress() {
       try {
@@ -82,7 +94,7 @@ export default function AutismIntervention({
     fetchProgress();
   }, [autismCategory, userId]);
 
-  // 📌 Save progress to API
+  // Save progress to API
   const handleCheckboxChange = async (
     week: number,
     suggestionIndex: number
@@ -109,7 +121,11 @@ export default function AutismIntervention({
   };
 
   const isWeekCompleted = (week: number) => {
-    return autismPlans[autismCategory][week - 1]?.suggestions.every(
+    const categoryKey = String(autismCategory);
+    const weekData = autismPlans[categoryKey]?.[week - 1];
+    if (!weekData) return false;
+
+    return weekData.suggestions.every(
       (_: any, index: number) => checkedItems[`week-${week}-${index}`]
     );
   };
@@ -122,8 +138,11 @@ export default function AutismIntervention({
 
   // Generate Graph Data
   useEffect(() => {
-    if (autismPlans[autismCategory]) {
-      const graphData = autismPlans[autismCategory].map((weekData: any) => {
+    const categoryKey = String(autismCategory);
+    const categoryData = autismPlans[categoryKey];
+
+    if (categoryData) {
+      const graphData = categoryData.map((weekData) => {
         const totalTasks = weekData.suggestions.length;
         const completedTasks = weekData.suggestions.filter(
           (_: any, index: number) =>
@@ -135,18 +154,20 @@ export default function AutismIntervention({
         };
       });
 
-      // Send the graph data to the parent component
       setGraphData(graphData);
     }
   }, [autismPlans, autismCategory, checkedItems, setGraphData]);
 
+  const categoryKey = String(autismCategory);
+  const categoryData = autismPlans[categoryKey];
+
   return (
     <div>
-      <Tabs defaultValue={String(autismCategory)} className="w-full">
+      <Tabs defaultValue={categoryKey} className="w-full">
         <TabsList className="flex justify-center">
           {autismLevels[autismCategory] && (
             <TabsTrigger
-              value={String(autismCategory)}
+              value={categoryKey}
               className={`${autismLevels[autismCategory].color} text-white p-2 rounded-lg w-full`}
             >
               {autismLevels[autismCategory].label}
@@ -160,65 +181,49 @@ export default function AutismIntervention({
           will be counted from the table)
         </div>
 
-        <TabsContent
-          value={String(autismCategory)}
-          className="p-4 border rounded-lg"
-        >
+        <TabsContent value={categoryKey} className="p-4 border rounded-lg">
           <Accordion type="single" collapsible className="w-full">
-            {autismPlans[autismCategory]?.map(
-              (weekData: any, weekIndex: number) => (
-                <AccordionItem
-                  key={weekIndex}
-                  value={`week-${weekData.week}`}
-                  disabled={
-                    weekData.week > 1 && !isWeekCompleted(weekData.week - 1)
-                  }
-                >
-                  <AccordionTrigger>Week {weekData.week}</AccordionTrigger>
-                  <AccordionContent>
-                    <ul className="space-y-2">
-                      {weekData.suggestions.map(
-                        (suggestion: any, index: number) => (
-                          <li
-                            key={index}
-                            className="flex items-center space-x-2"
-                          >
-                            <Checkbox
-                              checked={
-                                checkedItems[
-                                  `week-${weekData.week}-${index}`
-                                ] || false
-                              }
-                              onCheckedChange={() =>
-                                handleCheckboxChange(weekData.week, index)
-                              }
-                            />
-                            <span>{suggestion.title}</span>
-
-                            <div>
-                              <TooltipProvider>
-                                <Tooltip>
-                                  <TooltipTrigger className="bg-slate-300 px-2 rounded-full">
-                                    {" "}
-                                    💬
-                                  </TooltipTrigger>
-                                  <TooltipContent>
-                                    <p>
-                                      <strong>Description:</strong>{" "}
-                                      {suggestion.description}
-                                    </p>
-                                  </TooltipContent>
-                                </Tooltip>
-                              </TooltipProvider>
-                            </div>
-                          </li>
-                        )
-                      )}
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
-              )
-            )}
+            {categoryData?.map((weekData, weekIndex) => (
+              <AccordionItem
+                key={weekIndex}
+                value={`week-${weekData.week}`}
+                disabled={
+                  weekData.week > 1 && !isWeekCompleted(weekData.week - 1)
+                }
+              >
+                <AccordionTrigger>Week {weekData.week}</AccordionTrigger>
+                <AccordionContent>
+                  <ul className="space-y-2">
+                    {weekData.suggestions.map((suggestion, index) => (
+                      <li key={index} className="flex items-center space-x-2">
+                        <Checkbox
+                          checked={
+                            checkedItems[`week-${weekData.week}-${index}`] ||
+                            false
+                          }
+                          onCheckedChange={() =>
+                            handleCheckboxChange(weekData.week, index)
+                          }
+                        />
+                        <span>{suggestion.title}</span>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <span className="text-gray-400 hover:text-gray-600 cursor-help">
+                                ℹ️
+                              </span>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>{suggestion.description}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
           </Accordion>
         </TabsContent>
       </Tabs>

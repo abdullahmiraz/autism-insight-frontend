@@ -1,7 +1,7 @@
- // pages/auth.tsx
+// pages/auth.tsx
 "use client";
-import { useState, FormEvent } from "react";
-// import { useRouter } from "next/navigation";
+import { useState, FormEvent, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { googleSignIn, loginWithEmail, signUpWithEmail } from "../../lib/auth";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -12,11 +12,9 @@ const AuthPage = () => {
   const [password, setPassword] = useState<string>("");
   const [isSignUp, setIsSignUp] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-  // const router = useRouter();
-
-  const NEXT_PUBLIC_ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-  const NEXT_PUBLIC_ADMIN_PASS = process.env.NEXT_PUBLIC_ADMIN_PASS;
-
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo") || "/detect";
 
   // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
@@ -26,18 +24,13 @@ const AuthPage = () => {
       if (isSignUp) {
         await signUpWithEmail({ email, password });
         alert("Check your email to verify your account!");
-        window.location.href = "/detect"; // Full redirect
+        router.push(redirectTo);
       } else {
-        if (email === NEXT_PUBLIC_ADMIN_EMAIL && password === NEXT_PUBLIC_ADMIN_PASS) {
-          // Set admin token cookie
-          document.cookie = `adminToken=${btoa(email + password)}; path=/; max-age=86400`; // 24 hours expiry
-          alert("Logged in successfully!");
-          window.location.href = "/admin"; // Full redirect
-        } else {
-          await loginWithEmail({ email, password });
-          alert("Logged in successfully!");
-          window.location.href = "/detect"; // Full redirect
-        }
+        const userCredential = await loginWithEmail({ email, password });
+        // Store user email in cookie
+        document.cookie = `userEmail=${email}; path=/; max-age=86400`; // 24 hours expiry
+        alert("Logged in successfully!");
+        router.push(redirectTo);
       }
     } catch (err: any) {
       setError(err.message);
@@ -47,8 +40,12 @@ const AuthPage = () => {
   // Handle Google login
   const handleGoogleLogin = async () => {
     try {
-      await googleSignIn();
-      window.location.href = "/detect"; // Full redirect
+      const userCredential = await googleSignIn();
+      // Store user email in cookie
+      if (userCredential.user.email) {
+        document.cookie = `userEmail=${userCredential.user.email}; path=/; max-age=86400`; // 24 hours expiry
+      }
+      router.push(redirectTo);
     } catch (err: any) {
       setError(err.message);
     }
@@ -104,8 +101,13 @@ const AuthPage = () => {
         {/* forgot password  */}
         <div>
           <p className="text-sm text-gray-500 mt-1">
-            {isSignUp ? "" : (
-              <Link href="/forgot-password" className="text-blue-500 hover:underline">
+            {isSignUp ? (
+              ""
+            ) : (
+              <Link
+                href="/forgot-password"
+                className="text-blue-500 hover:underline"
+              >
                 Forgot password? Reset Password
               </Link>
             )}

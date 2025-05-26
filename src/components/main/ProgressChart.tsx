@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../lib/useAuth";
@@ -34,9 +34,10 @@ export default function ProgressChart() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/result", {
-        method: "GET",
-        headers: { userId: user?.uid || "" },
+      const response = await fetch("/api/results", {
+        headers: {
+          userId: user?.uid || "",
+        },
       });
 
       const result = await response.json();
@@ -75,7 +76,7 @@ export default function ProgressChart() {
     if (!confirm("Are you sure you want to delete this entry?")) return;
 
     try {
-      const response = await fetch("/api/result", {
+      const response = await fetch("/api/results", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),

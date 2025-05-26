@@ -1,37 +1,36 @@
+import { connectDB } from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
-import mongoose from "mongoose";
 import ResultModel from "../models/Result";
 
-// MongoDB Connection
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/autism-db";
-  // "mongodb://localhost:27017/autism-db";
-
-async function connectDB() {
-  if (mongoose.connection.readyState === 1) return;
-  await mongoose.connect(MONGODB_URI, { dbName: "autism-db" });
-}
-
-// GET API to fetch user's progress data
-export async function GET( ) {
+// GET API to fetch results
+export async function GET(req: NextRequest) {
   try {
     await connectDB();
-    const results = await ResultModel.find();
+    const userId = req.headers.get("userId");
 
-    if (!results || results.length === 0) {
-      return NextResponse.json({ error: "No results found" }, { status: 404 });
+    // If userId is provided, fetch results for that user
+    if (userId) {
+      const results = await ResultModel.find({ userId }).sort({
+        createdAt: -1,
+      });
+      if (!results || results.length === 0) {
+        return NextResponse.json([], { status: 200 });
+      }
+      return NextResponse.json(results, { status: 200 });
+    }
+
+    // Otherwise fetch all results
+    const results = await ResultModel.find().sort({ createdAt: -1 });
+    if (!results) {
+      return NextResponse.json([], { status: 200 });
     }
 
     return NextResponse.json(results, { status: 200 });
   } catch (error) {
-    console.error("Error fetching data:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch data" },
-      { status: 500 }
-    );
+    console.error("Error fetching results:", error);
+    return NextResponse.json([], { status: 500 });
   }
 }
-
 
 // DELETE API to remove a specific progress entry
 export async function DELETE(req: NextRequest) {
@@ -55,6 +54,9 @@ export async function DELETE(req: NextRequest) {
     );
   } catch (error) {
     console.error("Error deleting entry:", error);
-    return NextResponse.json({ error: "Failed to delete entry" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to delete entry" },
+      { status: 500 }
+    );
   }
 }

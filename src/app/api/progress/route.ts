@@ -1,4 +1,3 @@
- 
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 import ProgressModel from "../models/Progress";
@@ -6,7 +5,7 @@ import ProgressModel from "../models/Progress";
 // MongoDB Connection
 const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost:27017/autism-db";
-  // "mongodb://localhost:27017/autism-db";
+// "mongodb://localhost:27017/autism-db";
 
 async function connectDB() {
   if (mongoose.connection.readyState === 1) return;
@@ -71,7 +70,6 @@ export async function POST(req: NextRequest) {
   }
 }
 
-
 // delete progress
 export async function DELETE(req: NextRequest) {
   try {
@@ -91,7 +89,3 @@ export async function DELETE(req: NextRequest) {
     );
   }
 }
-
-
-
-
