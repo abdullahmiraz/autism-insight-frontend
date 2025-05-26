@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema(
         "Please enter a valid email",
       ],
     },
+    password: {
+      type: String,
+    },
     name: {
       type: String,
       required: [true, "Name is required"],
