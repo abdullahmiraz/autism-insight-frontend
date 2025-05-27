@@ -1,0 +1,620 @@
+{
+  "1": [
+    {
+      "week": 1,
+      "suggestions": [
+        {
+          "title": "Establish a routine",
+          "description": "Create a daily schedule to help the child understand what to expect"
+        },
+        {
+          "title": "Use simple language",
+          "description": "Use short, simple sentences to communicate with the child"
+        },
+        {
+          "title": "Practice eye contact",
+          "description": "Encourage the child to make eye contact during interactions"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "suggestions": [
+        {
+          "title": "Introduce social play",
+          "description": "Engage in simple interactive games that encourage basic social skills"
+        },
+        {
+          "title": "Use visual aids",
+          "description": "Incorporate pictures and visual schedules to support communication"
+        },
+        {
+          "title": "Read short stories together",
+          "description": "Use books with simple illustrations to encourage attention and language skills"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "suggestions": [
+        {
+          "title": "Encourage pointing at objects",
+          "description": "Practice identifying and pointing to items of interest to develop joint attention"
+        },
+        {
+          "title": "Practice turn-taking",
+          "description": "Use simple games that involve taking turns to build social understanding"
+        },
+        {
+          "title": "Use basic sign language",
+          "description": "Introduce simple signs to supplement verbal communication"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "suggestions": [
+        {
+          "title": "Play interactive games",
+          "description": "Engage in structured play activities that encourage social interaction"
+        },
+        {
+          "title": "Use positive reinforcement",
+          "description": "Reward desired behaviors with praise, affection or small rewards"
+        },
+        {
+          "title": "Teach emotions using pictures",
+          "description": "Use visual cards to help identify and understand different emotions"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "suggestions": [
+        {
+          "title": "Introduce new textures",
+          "description": "Gradually expose the child to different tactile experiences to improve sensory processing"
+        },
+        {
+          "title": "Use sensory-friendly toys",
+          "description": "Provide toys with appropriate sensory features that engage without overwhelming"
+        },
+        {
+          "title": "Encourage imitation games",
+          "description": "Play simple imitation games to develop observational learning skills"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "suggestions": [
+        {
+          "title": "Practice two-word phrases",
+          "description": "Encourage the child to use two-word phrases to communicate"
+        },
+        {
+          "title": "Encourage responding to name",
+          "description": "Practice calling the child's name and encourage them to respond"
+        },
+        {
+          "title": "Play 'follow the leader'",
+          "description": "Encourage the child to follow simple instructions"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "suggestions": [
+        {
+          "title": "Sing songs together",
+          "description": "Use music and singing to encourage vocal imitation and rhythm"
+        },
+        {
+          "title": "Encourage role-playing",
+          "description": "Practice simple pretend play scenarios to develop imagination"
+        },
+        {
+          "title": "Introduce deep-pressure activities",
+          "description": "Use appropriate pressure techniques to provide calming sensory input"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "suggestions": [
+        {
+          "title": "Teach simple coping strategies",
+          "description": "Help the child learn basic techniques to manage frustration or anxiety"
+        },
+        {
+          "title": "Use picture cards for communication",
+          "description": "Implement visual communication systems to support language development"
+        },
+        {
+          "title": "Encourage independent play",
+          "description": "Create opportunities for the child to play appropriately on their own"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "suggestions": [
+        {
+          "title": "Expand vocabulary with objects",
+          "description": "Use everyday items to teach new words and expand language"
+        },
+        {
+          "title": "Practice greeting people",
+          "description": "Teach and rehearse appropriate ways to greet familiar people"
+        },
+        {
+          "title": "Play with soft music",
+          "description": "Use gentle background music to create a calming environment"
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "suggestions": [
+        {
+          "title": "Encourage choice-making",
+          "description": "Offer simple choices to develop decision-making skills"
+        },
+        {
+          "title": "Use social stories",
+          "description": "Create simple narratives that illustrate social situations and appropriate responses"
+        },
+        {
+          "title": "Introduce basic self-care routines",
+          "description": "Begin teaching simple self-help skills with consistent support"
+        }
+      ]
+    },
+    {
+      "week": 11,
+      "suggestions": [
+        {
+          "title": "Teach emotional regulation",
+          "description": "Help identify emotions and learn appropriate ways to express feelings"
+        },
+        {
+          "title": "Encourage peer interactions",
+          "description": "Create structured opportunities for interaction with peers"
+        },
+        {
+          "title": "Practice short conversations",
+          "description": "Work on simple back-and-forth exchanges about familiar topics"
+        }
+      ]
+    },
+    {
+      "week": 12,
+      "suggestions": [
+        {
+          "title": "Review progress",
+          "description": "Assess improvements and identify areas for continued focus"
+        },
+        {
+          "title": "Continue positive reinforcement",
+          "description": "Maintain consistent rewards for desired behaviors and skills"
+        },
+        {
+          "title": "Encourage more independence",
+          "description": "Gradually reduce assistance while maintaining support as needed"
+        }
+      ]
+    }
+  ],
+  "2": [
+    {
+      "week": 1,
+      "suggestions": [
+        {
+          "title": "Use structured schedules",
+          "description": "Create visual timetables to provide predictability throughout the day"
+        },
+        {
+          "title": "Introduce sensory-friendly spaces",
+          "description": "Designate comfortable areas with appropriate sensory accommodations"
+        },
+        {
+          "title": "Practice basic commands",
+          "description": "Teach simple, clear instructions with consistent language"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "suggestions": [
+        {
+          "title": "Use hand-over-hand guidance",
+          "description": "Physically guide the child through new activities to build understanding"
+        },
+        {
+          "title": "Encourage imitation",
+          "description": "Model actions and gestures for the child to copy"
+        },
+        {
+          "title": "Introduce interactive books",
+          "description": "Use books with textures, flaps or sounds to encourage engagement"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "suggestions": [
+        {
+          "title": "Increase response time expectations",
+          "description": "Allow appropriate wait time for the child to process and respond"
+        },
+        {
+          "title": "Use more visual communication",
+          "description": "Incorporate pictures, symbols and gestures to support understanding"
+        },
+        {
+          "title": "Encourage simple gestures",
+          "description": "Teach basic gestures like waving, pointing, and nodding"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "suggestions": [
+        {
+          "title": "Introduce social games",
+          "description": "Play structured games that encourage taking turns and following rules"
+        },
+        {
+          "title": "Practice naming emotions",
+          "description": "Help identify basic emotions in self and others using pictures and mirrors"
+        },
+        {
+          "title": "Encourage following instructions",
+          "description": "Practice simple one-step directions with clear, consistent language"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "suggestions": [
+        {
+          "title": "Use sensory-friendly activities",
+          "description": "Engage in play that addresses sensory needs without overwhelming"
+        },
+        {
+          "title": "Encourage physical activities",
+          "description": "Incorporate appropriate gross motor movement throughout the day"
+        },
+        {
+          "title": "Practice sitting still",
+          "description": "Gradually increase the time spent in seated activities with support"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "suggestions": [
+        {
+          "title": "Expand vocabulary using objects",
+          "description": "Use concrete items to teach new words and concepts"
+        },
+        {
+          "title": "Use first-then strategies",
+          "description": "Structure activities with clear sequences to improve compliance"
+        },
+        {
+          "title": "Encourage joint attention",
+          "description": "Practice focusing on the same object or activity together"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "suggestions": [
+        {
+          "title": "Encourage interactive play",
+          "description": "Support back-and-forth play interactions with appropriate modeling"
+        },
+        {
+          "title": "Use positive reinforcement",
+          "description": "Provide immediate rewards for desired behaviors and attempts"
+        },
+        {
+          "title": "Practice waiting for turns",
+          "description": "Teach waiting skills through structured activities with visual supports"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "suggestions": [
+        {
+          "title": "Teach simple coping skills",
+          "description": "Introduce basic techniques to manage frustration or sensory overwhelm"
+        },
+        {
+          "title": "Encourage self-expression",
+          "description": "Provide appropriate outlets for communicating needs and feelings"
+        },
+        {
+          "title": "Use reward charts",
+          "description": "Create visual systems to track and reinforce target behaviors"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "suggestions": [
+        {
+          "title": "Practice basic social rules",
+          "description": "Teach simple concepts like personal space and greetings"
+        },
+        {
+          "title": "Encourage story-telling",
+          "description": "Support communication through structured narrative activities"
+        },
+        {
+          "title": "Use calming activities",
+          "description": "Incorporate regular sensory breaks with calming elements"
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "suggestions": [
+        {
+          "title": "Practice responding to greetings",
+          "description": "Rehearse appropriate responses when others say hello"
+        },
+        {
+          "title": "Introduce social scripts",
+          "description": "Teach simple phrases for common social situations"
+        },
+        {
+          "title": "Encourage independence",
+          "description": "Support self-help skills with appropriate prompting"
+        }
+      ]
+    },
+    {
+      "week": 11,
+      "suggestions": [
+        {
+          "title": "Teach basic hygiene routines",
+          "description": "Establish consistent steps for washing hands and face"
+        },
+        {
+          "title": "Encourage parallel play",
+          "description": "Support playing alongside peers as a foundation for interaction"
+        },
+        {
+          "title": "Practice structured routines",
+          "description": "Reinforce predictable sequences for daily activities"
+        }
+      ]
+    },
+    {
+      "week": 12,
+      "suggestions": [
+        {
+          "title": "Review progress",
+          "description": "Assess improvements and identify next steps for development"
+        },
+        {
+          "title": "Reinforce positive behaviors",
+          "description": "Continue supporting and rewarding targeted skills"
+        },
+        {
+          "title": "Plan future goals",
+          "description": "Set appropriate objectives for continued development"
+        }
+      ]
+    }
+  ],
+  "3": [
+    {
+      "week": 1,
+      "suggestions": [
+        {
+          "title": "Establish predictable routines",
+          "description": "Create highly consistent daily schedules with minimal changes"
+        },
+        {
+          "title": "Introduce deep-pressure therapy",
+          "description": "Use appropriate pressure techniques to provide calming sensory input"
+        },
+        {
+          "title": "Minimize sensory overload",
+          "description": "Adjust the environment to reduce overwhelming stimuli"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "suggestions": [
+        {
+          "title": "Use one-step instructions",
+          "description": "Keep directions simple, clear and accompanied by gestures"
+        },
+        {
+          "title": "Encourage non-verbal communication",
+          "description": "Support any form of intentional communication including gestures"
+        },
+        {
+          "title": "Introduce soft lighting",
+          "description": "Create a visually calm environment with appropriate lighting"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "suggestions": [
+        {
+          "title": "Practice calming techniques",
+          "description": "Teach and use simple strategies to help regulate emotions"
+        },
+        {
+          "title": "Use fidget tools",
+          "description": "Provide appropriate sensory items to support regulation"
+        },
+        {
+          "title": "Introduce simple choice-making",
+          "description": "Offer clear, limited options to encourage decision-making"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "suggestions": [
+        {
+          "title": "Encourage repetitive play with variations",
+          "description": "Honor repetitive interests while introducing small changes"
+        },
+        {
+          "title": "Use structured interactions",
+          "description": "Create consistent, predictable social exchanges"
+        },
+        {
+          "title": "Introduce basic cause-and-effect toys",
+          "description": "Use toys that provide clear, immediate responses to actions"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "suggestions": [
+        {
+          "title": "Reduce environmental triggers",
+          "description": "Identify and minimize specific sensory inputs that cause distress"
+        },
+        {
+          "title": "Encourage safe movement exploration",
+          "description": "Support physical activities that provide appropriate vestibular input"
+        },
+        {
+          "title": "Use adaptive communication tools",
+          "description": "Introduce appropriate alternative/augmentative communication methods"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "suggestions": [
+        {
+          "title": "Expand sensory play options",
+          "description": "Gradually introduce new sensory experiences based on tolerance"
+        },
+        {
+          "title": "Encourage touch-based interactions",
+          "description": "Use appropriate physical contact during play when acceptable"
+        },
+        {
+          "title": "Use soothing background music",
+          "description": "Incorporate calming sounds to create a comfortable environment"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "suggestions": [
+        {
+          "title": "Practice tolerance to small changes",
+          "description": "Introduce minor variations to routines with appropriate support"
+        },
+        {
+          "title": "Encourage simple turn-taking",
+          "description": "Practice basic back-and-forth interactions with clear structure"
+        },
+        {
+          "title": "Use reward-based learning",
+          "description": "Provide immediate, meaningful reinforcement for desired behaviors"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "suggestions": [
+        {
+          "title": "Introduce simple sign language",
+          "description": "Teach basic signs for common needs and wants"
+        },
+        {
+          "title": "Use visual schedules",
+          "description": "Create picture-based sequences for activities and transitions"
+        },
+        {
+          "title": "Encourage following one-step commands",
+          "description": "Practice simple directions with consistent wording and gestures"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "suggestions": [
+        {
+          "title": "Practice eye-tracking games",
+          "description": "Use moving objects or lights to encourage visual attention"
+        },
+        {
+          "title": "Encourage physical engagement",
+          "description": "Incorporate movement activities that provide sensory regulation"
+        },
+        {
+          "title": "Use alternative communication",
+          "description": "Support any meaningful communication attempts across modalities"
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "suggestions": [
+        {
+          "title": "Introduce limited social exposure",
+          "description": "Gradually increase tolerance for social situations with support"
+        },
+        {
+          "title": "Encourage basic object labeling",
+          "description": "Practice identifying familiar items through any communication method"
+        },
+        {
+          "title": "Practice calming strategies",
+          "description": "Reinforce techniques to help manage sensory overload"
+        }
+      ]
+    },
+    {
+      "week": 11,
+      "suggestions": [
+        {
+          "title": "Use structured playtime",
+          "description": "Create consistent play routines with clear beginnings and endings"
+        },
+        {
+          "title": "Introduce sensory-friendly outings",
+          "description": "Practice community activities in controlled, supportive environments"
+        },
+        {
+          "title": "Encourage recognition of familiar faces",
+          "description": "Practice identifying and responding to family members and caregivers"
+        }
+      ]
+    },
+    {
+      "week": 12,
+      "suggestions": [
+        {
+          "title": "Review progress",
+          "description": "Assess improvements in regulation, communication and engagement"
+        },
+        {
+          "title": "Encourage consistency",
+          "description": "Maintain successful strategies while planning for future needs"
+        },
+        {
+          "title": "Plan long-term strategies",
+          "description": "Develop sustainable approaches for ongoing support and development"
+        }
+      ]
+    }
+  ]
+}

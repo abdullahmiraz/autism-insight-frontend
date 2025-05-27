@@ -1,0 +1,53 @@
+[
+  {
+    "id": "A1",
+    "label": " Does your child look at you when you call his/her name?",
+    "options": ["No", "Yes"]
+  },
+  {
+    "id": "A2",
+    "label": " How easy is it for you to get eye contact with your child?",
+
+    "options": ["No", "Yes"]
+  },
+  {
+    "id": "A3",
+    "label": "Does your child point to indicate that s/he wants something? (e.g. a toy that is out of reach)",
+    "options": ["No", "Yes"]
+  },
+  {
+    "id": "A4",
+    "label": "Does your child point to share interest with you? (e.g. pointing at an interesting sight)",
+    "options": ["No", "Yes"]
+  },
+  {
+    "id": "A5",
+    "label": "Does your child pretend? (e.g. care for dolls, talk on a toy phone)",
+    "options": ["No", "Yes"]
+  },
+  {
+    "id": "A6",
+    "label": "Does your child follow where you’re looking?",
+    "options": ["No", "Yes"]
+  },
+  {
+    "id": "A7",
+    "label": "If you or someone else in the family is visibly upset, does your child show signs of wanting to comfort them? (e.g. stroking hair, hugging them)",
+    "options": ["No", "Yes"]
+  },
+  {
+    "id": "A8",
+    "label": "Would you describe your child’s first words as:",
+    "options": ["No", "Yes"]
+  },
+  {
+    "id": "A9",
+    "label": "Does your child use simple gestures? (e.g. wave goodbye)",
+    "options": ["No", "Yes"]
+  },
+  {
+    "id": "A10",
+    "label": "Does your child stare at nothing with no apparent purpose?",
+    "options": ["No", "Yes"]
+  }
+]
