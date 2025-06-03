@@ -14,6 +14,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import Link from "next/link";
 
 export default function ProgressChart() {
   const { user } = useAuth();
@@ -96,7 +97,15 @@ export default function ProgressChart() {
   };
 
   if (loading) return <div>Loading...</div>;
-  if (!data) return <div>No progress data available</div>;
+  if (!data || progressData.length === 0)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        No progress data available. First detect your child&apos;s autism level.
+        <Link href="/detect" className="text-blue-500 hover:underline">
+          Detect Now
+        </Link>
+      </div>
+    );
 
   return (
     <div className="container mx-auto p-4 my-6">

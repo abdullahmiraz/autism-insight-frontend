@@ -12,6 +12,7 @@ const AuthPageContent = () => {
   const [password, setPassword] = useState<string>("");
   const [isSignUp, setIsSignUp] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirectTo") || "/detect";
@@ -20,37 +21,51 @@ const AuthPageContent = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
+    setIsLoading(true);
+
     try {
       if (isSignUp) {
-        await signUpWithEmail({ email, password });
-        alert("Check your email to verify your account!");
-        // Use window.location for full page reload to ensure cookies are set
-        window.location.href = redirectTo;
+        const userCredential = await signUpWithEmail({ email, password });
+        if (userCredential) {
+          alert("Check your email to verify your account!");
+          // Don't redirect after signup, let user verify email first
+          setIsSignUp(false); // Switch to login view
+        }
       } else {
         const userCredential = await loginWithEmail({ email, password });
-        // Store user email in cookie
-        document.cookie = `userEmail=${email}; path=/; max-age=86400`; // 24 hours expiry
-        alert("Logged in successfully!");
-        // Use window.location for full page reload to ensure cookies are set
-        window.location.href = redirectTo;
+        if (userCredential) {
+          // Store user email in cookie
+          document.cookie = `userEmail=${email}; path=/; max-age=86400`; // 24 hours expiry
+          alert("Logged in successfully!");
+          // Only redirect after successful login
+          window.location.href = redirectTo;
+        }
       }
     } catch (err: any) {
       setError(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   // Handle Google login
   const handleGoogleLogin = async () => {
+    setError("");
+    setIsLoading(true);
     try {
       const userCredential = await googleSignIn();
-      // Store user email in cookie
-      if (userCredential.user.email) {
-        document.cookie = `userEmail=${userCredential.user.email}; path=/; max-age=86400`; // 24 hours expiry
+      if (userCredential) {
+        // Store user email in cookie
+        if (userCredential.user.email) {
+          document.cookie = `userEmail=${userCredential.user.email}; path=/; max-age=86400`; // 24 hours expiry
+        }
+        // Only redirect after successful Google login
+        window.location.href = redirectTo;
       }
-      // Use window.location for full page reload to ensure cookies are set
-      window.location.href = redirectTo;
     } catch (err: any) {
       setError(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -77,6 +92,7 @@ const AuthPageContent = () => {
               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
               title="Please enter a valid email address (e.g., name@example.com)"
               required
+              disabled={isLoading}
             />
             <p className="text-xs text-gray-500 mt-1">
               Enter a valid email address (e.g., name@example.com)
@@ -94,6 +110,7 @@ const AuthPageContent = () => {
               placeholder="Enter your password"
               className="w-full p-2 mt-1 border rounded"
               required
+              disabled={isLoading}
             />
             <p className="text-xs text-gray-500 mt-1">
               Must be of 6 characters or more
@@ -120,8 +137,9 @@ const AuthPageContent = () => {
         <Button
           type="submit"
           className="w-full mt-4 bg-blue-500 text-white hover:bg-blue-600"
+          disabled={isLoading}
         >
-          {isSignUp ? "Sign Up" : "Login"}
+          {isLoading ? "Processing..." : isSignUp ? "Sign Up" : "Login"}
         </Button>
       </form>
 
@@ -129,14 +147,16 @@ const AuthPageContent = () => {
         <Button
           onClick={handleGoogleLogin}
           className="w-full mt-2 bg-red-500 text-white hover:bg-red-600"
+          disabled={isLoading}
         >
-          Sign Up / Login with Google
+          {isLoading ? "Processing..." : "Sign Up / Login with Google"}
         </Button>
         <p className="text-sm mt-2">
           {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
           <button
             onClick={() => setIsSignUp(!isSignUp)}
             className="text-blue-500 hover:underline"
+            disabled={isLoading}
           >
             {isSignUp ? "Login" : "Sign Up"}
           </button>

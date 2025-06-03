@@ -39,7 +39,7 @@ const AdminPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filterType, setFilterType] = useState<
-    "weekly" | "monthly" | "quarterly" | "custom"
+    "weekly" | "monthly" | "quarterly" | "yearly" | "custom"
   >("weekly");
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -190,6 +190,8 @@ const AdminPage = () => {
           return diffDays <= 30;
         case "quarterly":
           return diffDays <= 90;
+        case "yearly":
+          return diffDays <= 365;
         default:
           return true;
       }
@@ -198,7 +200,7 @@ const AdminPage = () => {
   };
 
   const handleFilterTypeChange = (
-    type: "weekly" | "monthly" | "quarterly" | "custom"
+    type: "weekly" | "monthly" | "quarterly" | "yearly" | "custom"
   ) => {
     setFilterType(type);
     if (type !== "custom") {
@@ -227,7 +229,7 @@ const AdminPage = () => {
     <div className="container mx-auto p-4 space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold  ">Admin Dashboard</h1>
-        <Button
+        {/* <Button
           variant={"destructive"}
           onClick={() => {
             document.cookie =
@@ -236,7 +238,7 @@ const AdminPage = () => {
           }}
         >
           Logout
-        </Button>
+        </Button> */}
       </div>
 
       <div>
@@ -254,6 +256,7 @@ const AdminPage = () => {
                         | "weekly"
                         | "monthly"
                         | "quarterly"
+                        | "yearly"
                         | "custom"
                     )
                   }
@@ -261,6 +264,7 @@ const AdminPage = () => {
                   <option value="weekly">Weekly</option>
                   <option value="monthly">Monthly</option>
                   <option value="quarterly">Quarterly</option>
+                  <option value="yearly">Yearly</option>
                   <option value="custom">Custom Date Range</option>
                 </select>
                 {filterType === "custom" && (

@@ -84,7 +84,7 @@ export default function UsersPage() {
     <div className="container mx-auto p-4 space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">User Management</h1>
-        <Button
+        {/* <Button
           variant="destructive"
           onClick={() => {
             document.cookie =
@@ -93,7 +93,7 @@ export default function UsersPage() {
           }}
         >
           Logout
-        </Button>
+        </Button> */}
       </div>
 
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
